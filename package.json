@@ -13,6 +13,7 @@
 		"react-dom": "^18.2.0",
 		"react-scripts": "5.0.1",
 		"tabler-icons-react": "^1.52.0",
+		"typescript": "^6.0.3",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
@@ -21,7 +22,9 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -42,6 +45,15 @@
 		]
 	},
 	"devDependencies": {
-		"gh-pages": "^4.0.0"
+		"@storybook/addon-a11y": "^10.3.5",
+		"@storybook/addon-docs": "^10.3.5",
+		"@storybook/addon-onboarding": "^10.3.5",
+		"@storybook/preset-create-react-app": "^10.3.5",
+		"@storybook/react-webpack5": "^10.3.5",
+		"eslint-plugin-storybook": "^10.3.5",
+		"gh-pages": "^4.0.0",
+		"prop-types": "^15.8.1",
+		"storybook": "^10.3.5",
+		"webpack": "^5.106.2"
 	}
 }
