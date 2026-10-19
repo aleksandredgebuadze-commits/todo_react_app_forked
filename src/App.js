@@ -24,6 +24,7 @@ import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 export default function App() {
 	const [tasks, setTasks] = useState([]);
 	const [opened, setOpened] = useState(false);
+	const [titleError, setTitleError] = useState('');
 
 	const preferredColorScheme = useColorScheme();
 	const [colorScheme, setColorScheme] = useLocalStorage({
@@ -39,7 +40,17 @@ export default function App() {
 	const taskTitle = useRef('');
 	const taskSummary = useRef('');
 
+	function closeDialog() {
+		setTitleError('');
+		setOpened(false);
+	}
+
 	function createTask() {
+		if (!taskTitle.current.value.trim()) {
+			setTitleError('Title is required');
+			return;
+		}
+
 		setTasks([
 			...tasks,
 			{
@@ -55,6 +66,8 @@ export default function App() {
 				summary: taskSummary.current.value,
 			},
 		]);
+
+		closeDialog();
 	}
 
 	function deleteTask(index) {
@@ -99,9 +112,7 @@ export default function App() {
 						size={'md'}
 						title={'New Task'}
 						withCloseButton={false}
-						onClose={() => {
-							setOpened(false);
-						}}
+						onClose={closeDialog}
 						centered>
 						<TextInput
 							mt={'md'}
@@ -109,6 +120,8 @@ export default function App() {
 							placeholder={'Task Title'}
 							required
 							label={'Title'}
+							error={titleError}
+							onChange={() => titleError && setTitleError('')}
 						/>
 						<TextInput
 							ref={taskSummary}
@@ -117,20 +130,10 @@ export default function App() {
 							label={'Summary'}
 						/>
 						<Group mt={'md'} position={'apart'}>
-							<Button
-								onClick={() => {
-									setOpened(false);
-								}}
-								variant={'subtle'}>
+							<Button onClick={closeDialog} variant={'subtle'}>
 								Cancel
 							</Button>
-							<Button
-								onClick={() => {
-									createTask();
-									setOpened(false);
-								}}>
-								Create Task
-							</Button>
+							<Button onClick={createTask}>Create Task</Button>
 						</Group>
 					</Modal>
 					<Container size={550} my={40}>
