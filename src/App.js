@@ -103,35 +103,37 @@ export default function App() {
 							setOpened(false);
 						}}
 						centered>
-						<TextInput
-							mt={'md'}
-							ref={taskTitle}
-							placeholder={'Task Title'}
-							required
-							label={'Title'}
-						/>
-						<TextInput
-							ref={taskSummary}
-							mt={'md'}
-							placeholder={'Task Summary'}
-							label={'Summary'}
-						/>
-						<Group mt={'md'} position={'apart'}>
-							<Button
-								onClick={() => {
-									setOpened(false);
-								}}
-								variant={'subtle'}>
-								Cancel
-							</Button>
-							<Button
-								onClick={() => {
-									createTask();
-									setOpened(false);
-								}}>
-								Create Task
-							</Button>
-						</Group>
+						<form
+							onSubmit={event => {
+								event.preventDefault();
+								createTask();
+								setOpened(false);
+							}}>
+							<TextInput
+								mt={'md'}
+								ref={taskTitle}
+								placeholder={'Task Title'}
+								required
+								label={'Title'}
+								data-autofocus
+							/>
+							<TextInput
+								ref={taskSummary}
+								mt={'md'}
+								placeholder={'Task Summary'}
+								label={'Summary'}
+							/>
+							<Group mt={'md'} position={'apart'}>
+								<Button
+									onClick={() => {
+										setOpened(false);
+									}}
+									variant={'subtle'}>
+									Cancel
+								</Button>
+								<Button type={'submit'}>Create Task</Button>
+							</Group>
+						</form>
 					</Modal>
 					<Container size={550} my={40}>
 						<Group position={'apart'}>
